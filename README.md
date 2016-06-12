@@ -6,7 +6,7 @@ It shows how to use the following features:
 
   - REST requests from the Database (JSON)
   - User Auth with Email and Password
-  - User management (updae email, password, recover password and deletion of account)
+  - User management (update email, password, recover password and deletion of account)
 
 This app also has some extra features:
 
@@ -59,6 +59,7 @@ Follow these steps to locate your API Key:
 5. Open the `Firebase.as` file and set your variables and constants accordingly.
 
 Don't forget to enable Email and Password authentication from the Auth section in the Firebase console.
+
 
 [![Watch on Youtube](http://i.imgur.com/T1irUWs.png)](https://www.youtube.com/watch?v=hTjn1nxz1Lw)
 
