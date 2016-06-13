@@ -5,7 +5,6 @@ package
 	import flash.text.TextFormatAlign;
 	import flash.text.engine.ElementFormat;
 	import flash.text.engine.FontDescription;
-	import flash.text.engine.FontLookup;
 	
 	import feathers.controls.Alert;
 	import feathers.controls.Button;
@@ -16,7 +15,6 @@ package
 	import feathers.controls.Label;
 	import feathers.controls.List;
 	import feathers.controls.PanelScreen;
-	import feathers.controls.ScrollText;
 	import feathers.controls.SpinnerList;
 	import feathers.controls.TextInput;
 	import feathers.controls.renderers.DefaultListItemRenderer;
@@ -73,7 +71,6 @@ package
 			this.getStyleProviderForClass(Button).setFunctionForStyleName("back-button", setBackButtonStyles);
 			this.getStyleProviderForClass(Button).setFunctionForStyleName("callout-button", setCalloutButtonStyles);
 			this.getStyleProviderForClass(Button).setFunctionForStyleName("header-button", setHeaderButtonStyles);
-			this.getStyleProviderForClass(Label).setFunctionForStyleName("custom-label", setCustomLabelStyles);
 			
 			this.getStyleProviderForClass(Alert).defaultStyleFunction = this.setAlertStyles;
 			this.getStyleProviderForClass(Button).defaultStyleFunction = this.setButtonStyles;
@@ -82,7 +79,6 @@ package
 			this.getStyleProviderForClass(Label).defaultStyleFunction = this.setLabelStyles;
 			this.getStyleProviderForClass(List).defaultStyleFunction = this.setListStyles;
 			this.getStyleProviderForClass(PanelScreen).defaultStyleFunction = this.setPanelScreenStyles;
-			this.getStyleProviderForClass(ScrollText).defaultStyleFunction = this.setScrollTextStyles;
 			this.getStyleProviderForClass(SpinnerList).defaultStyleFunction = this.setSpinnerListStyles;
 			this.getStyleProviderForClass(TextInput).defaultStyleFunction = this.setTextInputStyles;
 		}
@@ -289,32 +285,6 @@ package
 			screen.backgroundSkin = new Quad(3, 3, 0xE0F2F1);
 		}
 		
-		private function setCustomLabelStyles(label:Label):void
-		{
-			label.textRendererFactory = function():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				
-				var font:FontDescription = new FontDescription("EmojiFont");
-				font.fontLookup = FontLookup.EMBEDDED_CFF;
-				renderer.elementFormat = new ElementFormat(font, 16, 0xFFFFFF);
-				return renderer;
-			}
-		}
-		
-		//-------------------------
-		// ScrollText
-		//-------------------------
-				
-		private function setScrollTextStyles(scrollText:ScrollText):void
-		{
-			var textFormat:TextFormat =  new TextFormat("_sans", 14, 0x000000);
-			textFormat.leading = 7;
-			
-			scrollText.textFormat = textFormat;
-			scrollText.isHTML = true;
-		}
-				
 		//-------------------------
 		// SpinnerList
 		//-------------------------

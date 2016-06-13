@@ -98,7 +98,7 @@ package
 				} else {
 					var myObject:Object = fileStream.readObject();					
 					fileStream.close();				
-
+					
 					//We check if the Object has a token (from Firebase), if not we go tot he LoginScreen
 					
 					if(myObject.idToken){
@@ -126,7 +126,6 @@ package
 						});
 						authLoader.addEventListener(flash.events.Event.COMPLETE, function():void
 						{
-							//We update the token
 							var rawData:Object = JSON.parse(String(authLoader.data));
 							
 							Firebase.LOGGED_USER_DATA.idToken = rawData.idToken;
@@ -150,7 +149,6 @@ package
 				//Fresh install or file was deleted
 				myNavigator.rootScreenID = LOGIN_SCREEN;
 			}			
-
 		}
 		
 	}

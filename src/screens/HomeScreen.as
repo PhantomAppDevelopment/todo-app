@@ -209,48 +209,7 @@ package screens
 			
 			var callout:Callout = Callout.show(content, button);
 		}
-		
-		private function signOut():void
-		{
-			//This code clears the contents of the prefs file and returns us to the LognScreen
-			
-			var file:File = File.applicationStorageDirectory.resolvePath("prefs.conf");
-			
-			var fileStream:FileStream = new FileStream();
-			fileStream.open(file, FileMode.WRITE);
-			fileStream.close();
-			
-			this.owner.replaceScreen("loginScreen");
-		}
-		
-		private function deleteAccount():void
-		{
-			var myObject:Object = new Object();
-			myObject.idToken = Firebase.LOGGED_USER_DATA.idToken;
-			
-			var header:URLRequestHeader = new URLRequestHeader("Content-Type", "application/json");
-			
-			var request:URLRequest = new URLRequest(Firebase.DELETE_ACCOUNT);
-			request.method = URLRequestMethod.POST;
-			request.data = JSON.stringify(myObject);
-			request.requestHeaders.push(header);
-			
-			var deleteAccountLoader:URLLoader = new URLLoader();
-			deleteAccountLoader.addEventListener(IOErrorEvent.IO_ERROR, onError);
-			deleteAccountLoader.addEventListener(flash.events.Event.COMPLETE, function():void
-			{
-				trace(deleteAccountLoader.data);
-				var rawData:Object = JSON.parse(String(deleteAccountLoader.data));
 				
-				if(rawData.kind == "identitytoolkit#DeleteAccountResponse"){
-					//Account was successfully delete in the server
-					signOut();
-				}						
-			});
-			deleteAccountLoader.load(request);
-			
-		}
-		
 		private function updateEmail():void
 		{
 			var  layoutForEmailPopUp:VerticalLayout = new VerticalLayout();
@@ -399,10 +358,49 @@ package screens
 				return quad;				
 			});
 		}
+				
+		private function deleteAccount():void
+		{
+			var myObject:Object = new Object();
+			myObject.idToken = Firebase.LOGGED_USER_DATA.idToken;
+			
+			var header:URLRequestHeader = new URLRequestHeader("Content-Type", "application/json");
+			
+			var request:URLRequest = new URLRequest(Firebase.DELETE_ACCOUNT);
+			request.method = URLRequestMethod.POST;
+			request.data = JSON.stringify(myObject);
+			request.requestHeaders.push(header);
+			
+			var deleteAccountLoader:URLLoader = new URLLoader();
+			deleteAccountLoader.addEventListener(IOErrorEvent.IO_ERROR, onError);
+			deleteAccountLoader.addEventListener(flash.events.Event.COMPLETE, function():void
+			{
+				var rawData:Object = JSON.parse(String(deleteAccountLoader.data));
+				
+				if(rawData.kind == "identitytoolkit#DeleteAccountResponse"){
+					//Account was successfully delete in the server
+					signOut();
+				}						
+			});
+			deleteAccountLoader.load(request);
+			
+		}
+		
+		private function signOut():void
+		{
+			//This code clears the contents of the prefs file and returns us to the LognScreen
+			
+			var file:File = File.applicationStorageDirectory.resolvePath("prefs.conf");
+			
+			var fileStream:FileStream = new FileStream();
+			fileStream.open(file, FileMode.WRITE);
+			fileStream.close();
+			
+			this.owner.replaceScreen("loginScreen");
+		}
 		
 		private function onError(event:IOErrorEvent):void
 		{
-			trace(event.currentTarget.data);
 			var rawData:Object = JSON.parse(String(event.currentTarget.data));
 			
 			alert = Alert.show(rawData.error.message, "Error", new ListCollection(

@@ -9,7 +9,6 @@ package
 	public class RoundedRect
 	{
 		[Embed(source="assets/icons/rounded.png")] private static const myAsset:Class;
-
 		
 		public static function createRoundedRect(color:uint = 0xFF0000):Image
 		{			
@@ -19,8 +18,6 @@ package
 			myImage.scale9Grid = new Rectangle(24, 24, 2, 2);
 			myImage.color = color;
 			return myImage;			
-		}
-		
-		
+		}		
 	}
 }
