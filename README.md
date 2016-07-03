@@ -11,7 +11,7 @@ It shows how to use the following features:
 This app also has some extra features:
 
   - Creating a simple preferences file to store user data
-  - RoundedRect wih a Scale9Grid
+  - RoundedRect with a Scale9Grid
   - Mail app-like ItemRenderer
   - Material Design custom theme
   - Multi DPI development
@@ -61,7 +61,7 @@ Follow these steps to locate your API Key:
 Don't forget to enable Email and Password authentication from the Auth section in the Firebase console.
 
 
-[![Watch on Youtube](http://i.imgur.com/T1irUWs.png)](https://www.youtube.com/watch?v=hTjn1nxz1Lw)
+[![Watch on Youtube](http://i.imgur.com/T1irUWs.png)](https://www.youtube.com/watch?v=WDFwFJYTU9k)
 
 ## Download
 
