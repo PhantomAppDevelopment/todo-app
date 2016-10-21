@@ -1,24 +1,25 @@
-# ToDo App 1.0.1
+# ToDo App 1.1.0
 
-ToDo App is a mobile application developed with Starling Framework and FeathersUI. It showcases how to use Firebase services with ActionScript.
+ToDo App is a mobile application developed with Starling Framework and FeathersUI. It showcases how to use Firebase services with ActionScript to create simple and secure CRUD system.
 
-It shows how to use the following features:
+It shows how to use the following Firebase features:
 
-  - REST requests from the Database (JSON)
-  - User Auth with Email and Password
-  - User management (update email, password, recover password and deletion of account)
+* REST requests from the Database (JSON)
+* User Auth with Email and Password
+* User management (update email, password, recover password and deletion of account)
 
 This app also has some extra features:
 
-  - Creating a simple preferences file to store user data
-  - RoundedRect with a Scale9Grid
-  - Mail app-like ItemRenderer
-  - Material Design custom theme
-  - Multi DPI development
+* Managing the logged in user profile with a Profile Manager class
+* Managing the Firebase response errros with a Responses class
+* RoundedRect with a Scale9Grid
+* Mail app-like ItemRenderer
+* Material Design custom theme
+* Multi DPI development
 
 To compile this application you require to provide your own Firebase API key which can be obtained for free on the Firebase developer console (see below), this project only works with Firebase V3 and its newer console located at https://console.firebase.google.com/ 
 
-AIR 21 or greater is required, FeathersUI 3.0 and Starling 2.0.1 are required as well.
+AIR 21 or greater is required, FeathersUI 3.0.4 and Starling 2.1 are required as well.
 
 ## What is Firebase?
 
