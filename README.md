@@ -4,14 +4,14 @@ ToDo App is a mobile application developed with Starling Framework and FeathersU
 
 It shows how to use the following Firebase features:
 
-* REST requests from the Database (JSON)
+* GET, POST, DELETE and PATCH requests to the Firebase Database (JSON)
 * User Auth with Email and Password
-* User management (update email, password, recover password and deletion of account)
+* User account management (update email, password, recover password and deletion of account)
 
 This app also has some extra features:
 
 * Managing the logged in user profile with a Profile Manager class
-* Managing the Firebase response errros with a Responses class
+* Managing the Firebase response errors with a Responses class
 * RoundedRect with a Scale9Grid
 * Mail app-like ItemRenderer
 * Material Design custom theme
