@@ -254,7 +254,7 @@ package screens
 					request.requestHeaders.push(header);
 
 					var updateEmailLoader:URLLoader = new URLLoader();
-					updateEmailLoader.addEventListener(IOErrorEvent.IO_ERROR, onError);
+					updateEmailLoader.addEventListener(IOErrorEvent.IO_ERROR, errorHandler);
 					updateEmailLoader.addEventListener(flash.events.Event.COMPLETE, function ():void
 					{
 						PopUpManager.removePopUp(emailPopUp, true);
