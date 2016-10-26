@@ -1,6 +1,8 @@
 package utils
 {
-	public dynamic class NavigatorData extends Object
+	import flash.utils.Dictionary;
+
+	public dynamic class NavigatorData extends Dictionary
 	{
 		public function NavigatorData()
 		{
