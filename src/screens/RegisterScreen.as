@@ -149,7 +149,7 @@ package screens
 			var rawData:Object = JSON.parse(event.currentTarget.data);
 
 			Firebase.LOGGED_USER_DATA = rawData;
-			Firebase.FIREBASE_AUTH_TOKEN = rawData.id_token;
+			Firebase.FIREBASE_AUTH_TOKEN = rawData.access_token;
 			ProfileManager.saveProfile(rawData);
 
 			this.dispatchEventWith(GO_HOME);
