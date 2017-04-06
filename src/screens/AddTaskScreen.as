@@ -98,15 +98,15 @@ package screens
 							{label: "OK"}
 						]));
 			} else {
-				var urlVars:Object = new Object();
-				urlVars.title = nameInput.text;
-				urlVars.description = descriptionInput.text;
-				urlVars.due_date = dueDate.value.getTime();
-				urlVars.start_date = new Date().getTime();
+				var myObject:Object = new Object();
+				myObject.title = nameInput.text;
+				myObject.description = descriptionInput.text;
+				myObject.due_date = dueDate.value.getTime();
+				myObject.start_date = new Date().getTime();
 
 				var request:URLRequest = new URLRequest(Firebase.FIREBASE_INSERT_URL + Firebase.LOGGED_USER_DATA.user_id +
 						".json" + "?auth=" + Firebase.FIREBASE_AUTH_TOKEN);
-				request.data = JSON.stringify(urlVars);
+				request.data = JSON.stringify(myObject);
 				request.method = URLRequestMethod.POST;
 
 				var taskLoader:URLLoader = new URLLoader();

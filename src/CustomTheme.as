@@ -14,21 +14,17 @@ package
 	import feathers.controls.TextInput;
 	import feathers.controls.renderers.DefaultListItemRenderer;
 	import feathers.controls.text.StageTextTextEditor;
-	import feathers.controls.text.TextBlockTextRenderer;
 	import feathers.controls.text.TextFieldTextRenderer;
 	import feathers.core.FeathersControl;
 	import feathers.core.ITextEditor;
 	import feathers.core.ITextRenderer;
+	import feathers.layout.Direction;
 	import feathers.layout.HorizontalAlign;
 	import feathers.themes.StyleNameFunctionTheme;
 
-	import flash.text.TextFormat;
-	import flash.text.TextFormatAlign;
-	import flash.text.engine.ElementFormat;
-	import flash.text.engine.FontDescription;
-
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
+	import starling.text.TextFormat;
 
 	import utils.RoundedRect;
 
@@ -58,7 +54,9 @@ package
 		{
 			FeathersControl.defaultTextRendererFactory = function ():ITextRenderer
 			{
-				return new TextBlockTextRenderer();
+				var renderer:TextFieldTextRenderer = new TextFieldTextRenderer();
+				renderer.isHTML = true;
+				return renderer;
 			}
 
 			FeathersControl.defaultTextEditorFactory = function ():ITextEditor
@@ -103,22 +101,16 @@ package
 			alert.headerProperties.paddingLeft = 10;
 			alert.headerProperties.leftItems = new <DisplayObject>[icon];
 			alert.headerProperties.gap = 10;
-			alert.headerProperties.titleAlign = Header.TITLE_ALIGN_PREFER_LEFT;
+			alert.headerProperties.titleAlign = HorizontalAlign.LEFT;
 
-			alert.messageFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 14, 0x00000);
-				renderer.leading = 7;
-				renderer.wordWrap = true;
-				return renderer;
-			};
+			alert.fontStyles = new TextFormat("_sans", 14, 0x000000, "left");
+			alert.fontStyles.leading = 7;
 
 			alert.buttonGroupFactory = function ():ButtonGroup
 			{
 				var group:ButtonGroup = new ButtonGroup();
 				group.customButtonStyleName = "alert-button";
-				group.direction = ButtonGroup.DIRECTION_HORIZONTAL;
+				group.direction = Direction.HORIZONTAL;
 				group.gap = 10;
 				group.padding = 10;
 				return group;
@@ -136,30 +128,18 @@ package
 			button.height = 50;
 			button.defaultSkin = RoundedRect.createRoundedRect(0xE0F2F1);
 			button.downSkin = RoundedRect.createRoundedRect(0xCCCCCC);
-
-			button.labelFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 16, 0x000000);
-				return renderer;
-			};
+			button.fontStyles = new TextFormat("_sans", 16, 0x000000);
 		}
 
 		private function setCalloutButtonStyles(button:Button):void
 		{
-			button.width = 120;
-			button.height = 35;
+			button.width = 150;
+			button.height = 45;
 			button.horizontalAlign = HorizontalAlign.LEFT;
 			button.paddingLeft = 10;
 			button.defaultSkin = new Quad(3, 3, 0x00796B);
 			button.downSkin = new Quad(3, 3, 0x004D40);
-			button.labelFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 12, 0xFFFFFF);
-				renderer.textAlign = TextBlockTextRenderer.TEXT_ALIGN_LEFT;
-				return renderer;
-			}
+			button.fontStyles = new TextFormat("_sans", 14, 0xFFFFFF, "left")
 		}
 
 		private function setAlertButtonStyles(button:Button):void
@@ -167,12 +147,7 @@ package
 			button.height = 40;
 			button.defaultSkin = new Quad(40, 40, 0x00796B);
 			button.downSkin = new Quad(40, 40, 0x004D40);
-			button.labelFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 14, 0xFFFFFF);
-				return renderer;
-			}
+			button.fontStyles = new TextFormat("_sans", 14, 0xFFFFFF);
 		}
 
 		private function setBackButtonStyles(button:Button):void
@@ -207,13 +182,7 @@ package
 			var quad:Quad = new Quad(3, 50, 0x00796B);
 
 			header.backgroundSkin = quad;
-
-			header.titleFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 16, 0xFFFFFF);
-				return renderer;
-			}
+			header.fontStyles = new TextFormat("_sans", 16, 0xFFFFFF);
 		}
 
 		//-------------------------
@@ -222,12 +191,7 @@ package
 
 		private function setLabelStyles(label:Label):void
 		{
-			label.textRendererFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 16, 0xFFFFFF);
-				return renderer;
-			}
+			label.fontStyles = new TextFormat("-sans", 16, 0xFFFFFF, "left");
 		}
 
 		//-------------------------
@@ -245,7 +209,7 @@ package
 			renderer.downSkin = new Quad(3, 3, 0x00796B);
 			renderer.defaultSelectedSkin = new Quad(3, 3, 0x00796B);
 
-			renderer.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
+			renderer.horizontalAlign = HorizontalAlign.LEFT;
 			renderer.paddingLeft = 10;
 			renderer.paddingRight = 10;
 			renderer.paddingTop = 10;
@@ -253,29 +217,20 @@ package
 			renderer.minHeight = 50;
 			renderer.gap = 10;
 
-			renderer.labelFactory = function ():ITextRenderer
-			{
-				var blackFormat:TextFormat = new TextFormat("_sans", 14, 0x000000);
-				blackFormat.leading = 7;
-				blackFormat.align = TextFormatAlign.LEFT;
+			var blackFormat:TextFormat = new TextFormat("_sans", 14, 0x000000, "left");
+			blackFormat.leading = 7;
 
-				var whiteFormat:TextFormat = new TextFormat("_sans", 14, 0xFFFFFF);
-				whiteFormat.leading = 7;
-				whiteFormat.align = TextFormatAlign.LEFT;
+			var whiteFormat:TextFormat = new TextFormat("_sans", 14, 0xFFFFFF, "left");
+			whiteFormat.leading = 7;
 
-				var renderer:TextFieldTextRenderer = new TextFieldTextRenderer();
-				renderer.wordWrap = true;
-				renderer.isHTML = true;
+			renderer.wordWrap = true;
 
-				renderer.setTextFormatForState(ButtonState.UP, blackFormat);
-				renderer.setTextFormatForState(ButtonState.UP_AND_SELECTED, whiteFormat);
-				renderer.setTextFormatForState(ButtonState.DOWN, whiteFormat);
-				renderer.setTextFormatForState(ButtonState.DOWN_AND_SELECTED, whiteFormat);
-				renderer.setTextFormatForState(ButtonState.HOVER, blackFormat);
-				renderer.setTextFormatForState(ButtonState.HOVER_AND_SELECTED, whiteFormat);
-
-				return renderer;
-			}
+			renderer.setFontStylesForState(ButtonState.UP, blackFormat);
+			renderer.setFontStylesForState(ButtonState.UP_AND_SELECTED, whiteFormat);
+			renderer.setFontStylesForState(ButtonState.DOWN, whiteFormat);
+			renderer.setFontStylesForState(ButtonState.DOWN_AND_SELECTED, whiteFormat);
+			renderer.setFontStylesForState(ButtonState.HOVER, blackFormat);
+			renderer.setFontStylesForState(ButtonState.HOVER_AND_SELECTED, whiteFormat);
 		}
 
 		//-------------------------
@@ -298,7 +253,6 @@ package
 
 			spinnerList.selectionOverlaySkin = overlay;
 			spinnerList.backgroundSkin = new Quad(3, 3, 0xFFFFFF);
-
 		}
 
 		//-------------------------
@@ -319,12 +273,7 @@ package
 				return editor;
 			}
 
-			textInput.promptFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 16, 0xCCCCCC);
-				return renderer;
-			}
+			textInput.promptFontStyles = new TextFormat("_sann", 16, 0xCCCCCC, "left", "top");
 		}
 
 	}

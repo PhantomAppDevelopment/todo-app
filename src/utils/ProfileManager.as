@@ -48,7 +48,7 @@ package utils
 		{
 			var tempObject:Object = loadProfile();
 
-			//We check if the profile exists by checking the existense of the localId value
+			//We check if the profile exists by checking the existence of the localId value
 
 			if (tempObject.user_id == null) {
 				tempObject = null;
@@ -60,7 +60,7 @@ package utils
 		}
 
 		/**
-		 * Sign outs the user from the app by setting the profile.data file into an empty object.
+		 * Signs out the user from the app by setting the profile.data file into an empty object.
 		 */
 		public static function signOut():void
 		{

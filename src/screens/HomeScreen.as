@@ -59,6 +59,8 @@ package screens
 
 		override protected function initialize():void
 		{
+			super.initialize();
+
 			this.title = "To Do's";
 			this..layout = new AnchorLayout();
 

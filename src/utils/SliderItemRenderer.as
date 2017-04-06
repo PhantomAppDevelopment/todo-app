@@ -5,18 +5,14 @@ package utils
 	import feathers.controls.ImageLoader;
 	import feathers.controls.Label;
 	import feathers.controls.LayoutGroup;
+	import feathers.controls.ScrollBarDisplayMode;
 	import feathers.controls.ScrollContainer;
-	import feathers.controls.Scroller;
 	import feathers.controls.renderers.LayoutGroupListItemRenderer;
-	import feathers.controls.text.TextBlockTextRenderer;
-	import feathers.core.ITextRenderer;
 	import feathers.events.FeathersEventType;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.layout.HorizontalLayout;
-
-	import flash.text.engine.ElementFormat;
-	import flash.text.engine.FontDescription;
+	import feathers.layout.RelativePosition;
 
 	import starling.animation.Tween;
 	import starling.core.Starling;
@@ -24,6 +20,7 @@ package utils
 	import starling.events.EnterFrameEvent;
 	import starling.events.Event;
 	import starling.events.ResizeEvent;
+	import starling.text.TextFormat;
 
 	public class SliderItemRenderer extends LayoutGroupListItemRenderer
 	{
@@ -55,7 +52,7 @@ package utils
 		override protected function initialize():void
 		{
 			this._scrollerContainer = new ScrollContainer();
-			this._scrollerContainer.scrollBarDisplayMode = Scroller.SCROLL_BAR_DISPLAY_MODE_NONE;
+			this._scrollerContainer.scrollBarDisplayMode = ScrollBarDisplayMode.NONE;
 			this._scrollerContainer.layout = new HorizontalLayout();
 			this._scrollerContainer.hasElasticEdges = false;
 			this._scrollerContainer.decelerationRate = 0.3;
@@ -82,23 +79,13 @@ package utils
 			this._label1 = new Label();
 			this._label1.styleProvider = null;
 			this._label1.layoutData = new AnchorLayoutData(12, 10, NaN, 10, NaN, NaN);
-			this._label1.textRendererFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 16, 0x000000);
-				return renderer;
-			};
+			this._label1.fontStyles = new TextFormat("_sans", 16, 0x000000, "left");
 			this._middleContent.addChild(this._label1);
 
 			this._label2 = new Label();
 			this._label2.styleProvider = null;
 			this._label2.layoutData = new AnchorLayoutData(NaN, 10, 12, 10, NaN, NaN);
-			this._label2.textRendererFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 16, 0x000000);
-				return renderer;
-			};
+			this._label2.fontStyles = new TextFormat("_sans", 16, 0x000000, "left");
 			this._middleContent.addChild(this._label2);
 
 			this._transparentButton = new BasicButton();
@@ -137,14 +124,9 @@ package utils
 			this._button1.layoutData = new AnchorLayoutData(0, 0, 0, NaN, NaN, 0);
 			this._button1.defaultIcon = icon1;
 			this._button1.label = "Done";
-			this._button1.iconPosition = Button.ICON_POSITION_TOP;
+			this._button1.iconPosition = RelativePosition.TOP;
 			this._button1.defaultSkin = new Quad(3, 3, 0x0066FF);
-			this._button1.labelFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 12, 0xFFFFFF);
-				return renderer;
-			};
+			this._button1.fontStyles = new TextFormat("_sans", 12, 0xFFFFFF)
 			this._leftContent.addChild(this._button1);
 
 			var icon2:ImageLoader = new ImageLoader();
@@ -160,14 +142,9 @@ package utils
 			this._button2.layoutData = new AnchorLayoutData(0, NaN, 0, 0, NaN, 0);
 			this._button2.defaultIcon = icon2;
 			this._button2.label = "Delete";
-			this._button2.iconPosition = Button.ICON_POSITION_TOP;
+			this._button2.iconPosition = RelativePosition.TOP;
 			this._button2.defaultSkin = new Quad(3, 3, 0xCC0000);
-			this._button2.labelFactory = function ():ITextRenderer
-			{
-				var renderer:TextBlockTextRenderer = new TextBlockTextRenderer();
-				renderer.elementFormat = new ElementFormat(new FontDescription("_sans"), 12, 0xFFFFFF);
-				return renderer;
-			};
+			this._button2.fontStyles = new TextFormat("_sans", 12, 0xFFFFFF)
 			this._rightContent.addChild(this._button2);
 
 			this.addEventListener(EnterFrameEvent.ENTER_FRAME, checkSelectedIndex);
@@ -180,7 +157,7 @@ package utils
 		override protected function commitData():void
 		{
 			if (this._data && this._owner) {
-				this._label1.text = this._data.title;
+				this._label1.text = "<b>" + this._data.title + "</b>";
 				this._label2.text = new Date(this._data.due_date).toLocaleString();
 
 				this._button1.visible = false;
@@ -302,7 +279,6 @@ package utils
 		protected function checkSelectedIndex():void
 		{
 			if (!this.isSelected) {
-				//this.removeEventListener(EnterFrameEvent.ENTER_FRAME, checkSelectedIndex);
 				this._scrollerContainer.scrollToPageIndex(1, 0, 0.3);
 				this._scrollerContainer.snapToPages = true;
 			}
